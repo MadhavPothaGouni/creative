@@ -1,28 +1,51 @@
 // src/components/TaskCard.jsx
 import React from "react";
-
-const priorityColors = {
-  low: "bg-low text-yellow-800",
-  high: "bg-high text-red-800",
-  completed: "bg-completed text-green-800",
-};
+import { ChatBubbleLeftEllipsisIcon, PaperClipIcon } from "@heroicons/react/24/outline";
 
 const TaskCard = ({ task }) => {
   return (
-    <div className="bg-grayCard rounded-lg p-4 shadow-card flex flex-col gap-2">
-      <h3 className="font-semibold text-gray-800">{task.title}</h3>
-      {task.description && (
-        <p className="text-gray-600 text-sm">{task.description}</p>
-      )}
-      <div className="flex justify-between items-center mt-2">
+    <div className="bg-white p-4 rounded-lg shadow-sm border">
+      {/* Priority + menu */}
+      <div className="flex items-center justify-between mb-2">
         <span
-          className={`text-xs font-medium px-2 py-1 rounded-full ${
-            priorityColors[task.priority] || "bg-gray-200 text-gray-700"
+          className={`text-xs font-medium px-2 py-1 rounded ${
+            task.priority === "High"
+              ? "bg-red-100 text-red-600"
+              : task.priority === "Low"
+              ? "bg-orange-100 text-orange-600"
+              : "bg-green-100 text-green-600"
           }`}
         >
-          {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
+          {task.priority}
         </span>
-        <span className="text-gray-400 text-xs">{task.status}</span>
+        <button className="text-gray-400 hover:text-gray-600">⋮</button>
+      </div>
+
+      {/* Title + Description */}
+      <h4 className="font-semibold text-gray-800 mb-1">{task.title}</h4>
+      <p className="text-sm text-gray-500 mb-3">{task.description}</p>
+
+      {/* Avatars + Stats */}
+      <div className="flex items-center justify-between">
+        <div className="flex -space-x-2">
+          {task.assignees?.map((a, idx) => (
+            <img
+              key={idx}
+              src={a}
+              alt="assignee"
+              className="h-6 w-6 rounded-full border-2 border-white"
+            />
+          ))}
+        </div>
+        <div className="flex items-center gap-3 text-xs text-gray-500">
+          <span className="flex items-center gap-1">
+            <ChatBubbleLeftEllipsisIcon className="h-4 w-4" />{" "}
+            {task.comments || 0}
+          </span>
+          <span className="flex items-center gap-1">
+            <PaperClipIcon className="h-4 w-4" /> {task.files || 0}
+          </span>
+        </div>
       </div>
     </div>
   );
