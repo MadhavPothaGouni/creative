@@ -105,8 +105,35 @@ const tasksSlice = createSlice({
     addTask: (state, action) => {
       state.tasks.push(action.payload);
     },
+    moveTask: (state, action) => {
+      const { taskId, newStatus, newIndex } = action.payload;
+      const task = state.tasks.find((t) => t.id === taskId);
+      if (!task) return;
+
+      // Remove task from current position
+      state.tasks = state.tasks.filter((t) => t.id !== taskId);
+
+      // Update task status
+      task.status = newStatus;
+
+      // Insert task at correct index in the new column
+      const tasksInColumn = state.tasks.filter((t) => t.status === newStatus);
+      tasksInColumn.splice(newIndex, 0, task);
+
+      // Merge tasks not in this column
+      const otherTasks = state.tasks.filter((t) => t.status !== newStatus);
+      state.tasks = [...otherTasks, ...tasksInColumn];
+    },
+    updateTask: (state, action) => {
+      const { id, updates } = action.payload;
+      const task = state.tasks.find((t) => t.id === id);
+      if (task) Object.assign(task, updates);
+    },
+    deleteTask: (state, action) => {
+      state.tasks = state.tasks.filter((t) => t.id !== action.payload);
+    },
   },
 });
 
-export const { addTask } = tasksSlice.actions;
+export const { addTask, moveTask, updateTask, deleteTask } = tasksSlice.actions;
 export default tasksSlice.reducer;
