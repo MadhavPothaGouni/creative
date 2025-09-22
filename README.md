@@ -57,7 +57,7 @@ Copy code
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/creative-upaay-dashboard.git
+git clone https://github.com/MadhavPothaGouni/creative
 cd creative-upaay-dashboard
 2. Install dependencies
 bash
@@ -67,7 +67,6 @@ npm install
 bash
 Copy code
 npm start
-Open http://localhost:3000 to view the dashboard in your browser.
 
 Usage
 Click Add Task (+) in any column to add a new task.
@@ -77,6 +76,10 @@ Drag tasks between columns to update their status.
 Use the search bar to filter tasks by title or description.
 
 Filter and Today buttons are UI placeholders (can be extended in the future).
+
+Live Demo
+
+https://creative-green-one.vercel.app/
 
 Notes
 Tasks are stored in Redux state and saved to Local Storage, so refreshing the page will preserve tasks.
@@ -99,7 +102,3 @@ yaml
 Copy code
 
 ---
-
-If you want, I can also make an **enhanced version with screenshots of your dashboard** and **live deployment links** ready for GitHub.  
-
-Do you want me to do that next?
